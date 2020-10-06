@@ -1,3 +1,4 @@
+#!/bin/bash
 useradd -m sftpuser
 echo "Type in password for sftpuser"
 passwd sftpuser
@@ -6,8 +7,8 @@ wget https://packages.microsoft.com/config/ubuntu/18.04/packages-microsoft-prod.
 dpkg -i packages-microsoft-prod.deb
 apt-get update
 apt install blobfuse
-mkdir /mnt/resource/blobfusetmp -p
-chown sftpuser /mnt/resource/blobfusetmp
+mkdir /mnt/blobfusetmp -p
+chown sftpuser /mnt/blobfusetmp
 echo "Type in Storage Account Name"
 read accountName
 echo "Type in Storage Account Key"
@@ -19,4 +20,4 @@ echo accountKey $accountKey >> /home/sftpuser/fuse_connection.cfg
 echo containerName $containerName >> /home/sftpuser/fuse_connection.cfg
 mkdir /home/sftpuser/azstoragecontainer -p
 chown -R sftpuser /home/sftpuser
-sudo -u sftpuser blobfuse /home/sftpuser/azstoragecontainer --tmp-path=/mnt/resource/blobfusetmp  --config-file=/home/sftpuser/fuse_connection.cfg -o attr_timeout=240 -o entry_timeout=240 -o negative_timeout=120
+sudo -u sftpuser blobfuse /home/sftpuser/azstoragecontainer --tmp-path=/mnt/blobfusetmp  --config-file=/home/sftpuser/fuse_connection.cfg -o attr_timeout=240 -o entry_timeout=240 -o negative_timeout=120
