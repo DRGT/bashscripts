@@ -21,3 +21,4 @@ echo containerName $containerName >> /home/sftpuser/fuse_connection.cfg
 mkdir /home/sftpuser/azstoragecontainer -p
 chown -R sftpuser /home/sftpuser
 sudo -u sftpuser blobfuse /home/sftpuser/azstoragecontainer --tmp-path=/mnt/blobfusetmp  --config-file=/home/sftpuser/fuse_connection.cfg -o attr_timeout=240 -o entry_timeout=240 -o negative_timeout=120
+echo "@reboot sftpuser blobfuse /home/sftpuser/azstoragecontainer --tmp-path=/mnt/blobfusetmp  --config-file=/home/sftpuser/fuse_connection.cfg -o attr_timeout=240 -o entry_timeout=240 -o negative_timeout=120" > /etc/cron.d/mountblob
